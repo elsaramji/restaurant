@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:restaurant/features/auth/presentiton/views/login_screen.dart';
+import 'package:restaurant/features/cart/presentition/views/foodie_cart_view.dart';
 import 'package:restaurant/features/home/presentition/view/foodei_home.dart';
 
 final GoRouter router = GoRouter(
@@ -15,6 +16,11 @@ final GoRouter router = GoRouter(
       path: FoodeiHome.routeName,
       name: FoodeiHome.routeName,
       pageBuilder: (context, state) => _easyTransition(const FoodeiHome()),
+    ),
+    GoRoute(
+      path: FoodieCartView.routeName,
+      name: FoodieCartView.routeName,
+      pageBuilder: (context, state) => _easyTransition(const FoodieCartView()),
     ),
   ],
 );
