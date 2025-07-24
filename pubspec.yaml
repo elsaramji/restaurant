@@ -33,8 +33,14 @@ dependencies:
   firebase_auth: ^5.7.0
   #End Dependencies.
 dev_dependencies:
+  flutter_launcher_icons: "^0.14.4"
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/foodies_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
   flutter_test:
-    sdk: flutter
+      sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
