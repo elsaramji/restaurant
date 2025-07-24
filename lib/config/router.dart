@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:restaurant/features/auth/views/login_screen.dart';
+import 'package:restaurant/features/auth/presentiton/views/login_screen.dart';
+import 'package:restaurant/features/home/presentition/view/foodei_home.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: LoginScreen.routeName,
@@ -9,6 +10,11 @@ final GoRouter router = GoRouter(
       path: LoginScreen.routeName,
       name: LoginScreen.routeName,
       pageBuilder: (context, state) => _easyTransition(const LoginScreen()),
+    ),
+    GoRoute(
+      path: FoodeiHome.routeName,
+      name: FoodeiHome.routeName,
+      pageBuilder: (context, state) => _easyTransition(const FoodeiHome()),
     ),
   ],
 );
