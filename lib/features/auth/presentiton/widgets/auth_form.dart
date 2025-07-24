@@ -1,9 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:restaurant/config/colors.dart';
 import 'package:restaurant/config/texts_styles.dart';
+import 'package:restaurant/features/auth/presentiton/logic/create_email_with_firebase_auth.dart';
+import 'package:restaurant/features/auth/presentiton/logic/login_email_with_firebase_auth.dart';
+import 'package:restaurant/shared/logic/validator/validator_functions.dart';
 import 'package:restaurant/shared/widgets/custom_primary_button.dart';
 import 'package:restaurant/shared/widgets/text_form_filed.dart';
 
@@ -48,11 +49,8 @@ class _AuthFormState extends State<AuthForm> {
 
             CustomFormFeild(
               controller: emailController,
-              validator: (p0) {
-                if (p0!.isEmpty) {
-                  return "Please enter your email";
-                }
-                return null;
+              validator: (email) {
+                return emailValidator(email);
               },
               textInputAction: TextInputAction.next,
               textInputType: TextInputType.emailAddress,
@@ -62,11 +60,8 @@ class _AuthFormState extends State<AuthForm> {
             SizedBox(height: 16.h),
             CustomFormFeild(
               controller: passwordController,
-              validator: (p0) {
-                if (p0!.isEmpty) {
-                  return "Please enter your password";
-                }
-                return null;
+              validator: (password) {
+                return passwordValidator(password);
               },
               textInputAction: TextInputAction.done,
               textInputType: TextInputType.visiblePassword,
@@ -77,11 +72,13 @@ class _AuthFormState extends State<AuthForm> {
               padding: EdgeInsets.symmetric(vertical: 32.h),
               child: PrimaryButton(
                 text: "Login",
-                onPressed: () {
+                onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                    log(
-                      "email: ${emailController.text} password: ${passwordController.text}",
+                    await loginAcountWithEmailAndPassword(
+                      email: emailController.text,
+                      password: passwordController.text,
+                      context: context,
                     );
                   }
                 },
@@ -97,6 +94,16 @@ class _AuthFormState extends State<AuthForm> {
                   ),
                 ),
                 GestureDetector(
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      createAcountWithFirebaseAuth(
+                        emailController.text,
+                        passwordController.text,
+                        context,
+                      );
+                    }
+                  },
                   child: Text(
                     "Sign up",
                     style: AppTextStyles.interSemiBold14().copyWith(
